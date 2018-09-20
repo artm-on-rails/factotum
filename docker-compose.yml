@@ -1,0 +1,25 @@
+version: "3"
+services:
+  app:
+    build: .
+    hostname: factotum_app
+    depends_on:
+      - db
+    ports:
+      - 3000
+    networks:
+      default:
+      mancave:
+  db:
+    image: postgres:10.1
+    hostname: factotum_db
+    volumes:
+      - db:/var/lib/postgresql/data
+
+networks:
+  mancave:
+    external:
+      name: mancave_mancave
+
+volumes:
+  db:

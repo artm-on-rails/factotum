@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  host: db
+  username: postgres
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: factotum_development
+  min_messages: notice
+test:
+  <<: *default
+  database: factotum_test
+production:
+  <<: *default
