@@ -1,10 +1,12 @@
 Jack.destroy_all
-Jack.create(
+jack = Jack.create(
   email: "jack@trades.com",
   password: "letmein"
 )
 
 Trade.destroy_all
-Trade.create(name: "Tailor")
-Trade.create(name: "Reaper")
-Trade.create(name: "Pipe player")
+tailor = Trade.create(name: "Tailor")
+reaper = Trade.create(name: "Reaper")
+pipe_player = Trade.create(name: "Pipe player")
+
+jack.trades = [tailor, reaper]
