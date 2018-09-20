@@ -6,8 +6,8 @@ class JackTest < ActiveSupport::TestCase
     refute jack.of_all_trades?
   end
 
-  test "Factotum is of all trades by default" do
-    johannes = create(:factotum)
+  test "Jack of all trades reports that status" do
+    johannes = create(:jack, :of_all_trades)
     assert johannes.of_all_trades?
   end
 
@@ -25,9 +25,9 @@ class JackTest < ActiveSupport::TestCase
     assert jack.is_master_of?(tailor)
   end
 
-  test "Factotum is master of any trade" do
+  test "Jack of all trades is master of any trade" do
     tailor = create(:tailor)
-    johannes = create(:factotum)
+    johannes = create(:jack, :of_all_trades)
     assert johannes.is_master_of?(tailor)
   end
 end
