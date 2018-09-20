@@ -9,17 +9,13 @@ class Jack < ApplicationRecord
   # to use it directly much.
   has_many :occupations
 
-  # a help association for establishing mastered_trades association below
-  has_many :mastered_occupations,
-           -> { where master: true },
-           class_name: "Occupation"
-
   # Jack's trades
   has_many :trades, through: :occupations
 
   # Trade's of which Jack is a master
   has_many :mastered_trades,
-           through: :mastered_occupations,
+           -> { where occupations: { master: true } },
+           through: :occupations,
            source: :trade
 
   # is this a jack of all trades?
