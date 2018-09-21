@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class JacksControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
-
   setup do
     @jack = create(:jack)
     sign_in(@jack)
