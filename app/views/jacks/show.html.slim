@@ -1,5 +1,9 @@
 p#notice = notice
 
+p
+  b => @jack.email
+  - if @jack.of_all_trades?
+    | is Jack of all trades
 
 => link_to 'Edit', edit_jack_path(@jack)
 '|
