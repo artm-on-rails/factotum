@@ -2,6 +2,7 @@
   "name": "factotum",
   "private": true,
   "dependencies": {
+    "bootstrap": "^4.1.3",
     "jquery": "^3.2.1"
   }
 }
