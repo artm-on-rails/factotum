@@ -18,6 +18,11 @@ class Jack < ApplicationRecord
            through: :occupations,
            source: :trade
 
+  accepts_nested_attributes_for \
+    :occupations,
+    reject_if: :all_blank,
+    allow_destroy: true
+
   # is this a jack of all trades?
   def of_all_trades?
     email[/factotum/].present?

@@ -6,6 +6,10 @@
     = f.input :email
     = f.input :password
     = f.input :password_confirmation
-
+    h3 Trades
+    = f.simple_fields_for :occupations do |occupation_fields|
+      = render "occupation_fields", f: occupation_fields
+    .links
+      = link_to_add_association "add trade", f, :occupations
   .form-actions
     = f.button :submit

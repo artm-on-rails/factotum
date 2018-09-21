@@ -53,6 +53,11 @@ class JacksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def jack_params
-      params.require(:jack).permit(:email, :password, :password_confirmation)
+      params.require(:jack).permit(
+        :email,
+        :password,
+        :password_confirmation,
+        occupations_attributes: %i[id trade_id master _destroy]
+      )
     end
 end

@@ -1,0 +1,4 @@
+.nested-fields
+  = f.input :trade_id, collection: Trade.all
+  = f.input :master
+  = link_to_remove_association "unoccupy", f
