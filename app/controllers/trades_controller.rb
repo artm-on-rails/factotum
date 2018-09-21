@@ -53,6 +53,6 @@ class TradesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def trade_params
-      params.fetch(:trade, {})
+      params.require(:trade).permit(:name)
     end
 end
