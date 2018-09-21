@@ -6,10 +6,12 @@ table
       th
       th
       th
+      th
 
   tbody
     - @jacks.each do |jack|
       tr
+        td = jack.email
         td = link_to 'Show', jack
         td = link_to 'Edit', edit_jack_path(jack)
         td = link_to 'Destroy', jack, data: { confirm: 'Are you sure?' }, method: :delete

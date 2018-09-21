@@ -6,10 +6,12 @@ table
       th
       th
       th
+      th
 
   tbody
     - @trades.each do |trade|
       tr
+        td = trade.name
         td = link_to 'Show', trade
         td = link_to 'Edit', edit_trade_path(trade)
         td = link_to 'Destroy', trade, data: { confirm: 'Are you sure?' }, method: :delete
