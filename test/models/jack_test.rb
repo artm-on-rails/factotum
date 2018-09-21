@@ -13,15 +13,13 @@ class JackTest < ActiveSupport::TestCase
 
   test "Jack isn't master of his trades by default" do
     tailor = create(:tailor)
-    jack = create(:jack)
-    jack.trades = [tailor]
+    jack = create(:jack, trades: [tailor])
     refute jack.is_master_of?(tailor)
   end
 
   test "Jack is master of his mastered trades" do
     tailor = create(:tailor)
-    jack = create(:jack)
-    jack.mastered_trades = [tailor]
+    jack = create(:jack, mastered_trades: [tailor])
     assert jack.is_master_of?(tailor)
   end
 
