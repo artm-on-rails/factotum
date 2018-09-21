@@ -1,11 +1,11 @@
 require 'test_helper'
 
 class JacksControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @jack = create(:jack)
-    post jack_session_path \
-      "jack[email]"    => @jack.email,
-      "jack[password]" => @jack.password
+    sign_in(@jack)
   end
 
   test "should get index" do

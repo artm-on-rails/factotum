@@ -1,11 +1,11 @@
 require 'test_helper'
 
 class TradesControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+  
   setup do
     @jack = create(:jack)
-    post jack_session_path \
-      "jack[email]"    => @jack.email,
-      "jack[password]" => @jack.password
+    sign_in(@jack)
     @trade = create(:tailor)
   end
 
