@@ -2,7 +2,10 @@ require 'test_helper'
 
 class JacksControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @jack = jacks(:one)
+    @jack = create(:jack)
+    post jack_session_path \
+      "jack[email]"    => @jack.email,
+      "jack[password]" => @jack.password
   end
 
   test "should get index" do
@@ -17,7 +20,7 @@ class JacksControllerTest < ActionDispatch::IntegrationTest
 
   test "should create jack" do
     assert_difference('Jack.count') do
-      post jacks_url, params: { jack: {  } }
+      post jacks_url, params: { jack: { email: "jack@trades.com" } }
     end
 
     assert_redirected_to jack_url(Jack.last)
@@ -34,7 +37,7 @@ class JacksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update jack" do
-    patch jack_url(@jack), params: { jack: {  } }
+    patch jack_url(@jack), params: { jack: { email: "jack@moved.com" } }
     assert_redirected_to jack_url(@jack)
   end
 
