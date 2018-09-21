@@ -29,6 +29,8 @@ gem "paperclip"
 gem "active_decorator"
 # boot large Ruby/Rails apps faster
 gem "bootsnap"
+# nested association subforms
+gem "cocoon"
 
 group :development do
   # faster rails command line
