@@ -41,6 +41,5 @@ RUN bundle install
 COPY package.json yarn.lock $APP_HOME/
 RUN yarn install
 
-COPY . $APP_HOME
-RUN chown -R rails:rails $APP_HOME $BUNDLE_PATH
+COPY --chown=rails:rails . $APP_HOME
 CMD ["bin/rails", "server", "-p", "3000", "-b", "0.0.0.0"]
