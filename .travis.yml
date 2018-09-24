@@ -3,4 +3,4 @@ language: shell
 sudo: required
 script:
   - 'docker-compose build'
-  - 'docker-compose run --rm rails test'
+  - 'docker-compose run --rm app rails test'
