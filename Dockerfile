@@ -24,7 +24,8 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
 ENV APP_HOME=/app BUNDLE_PATH=/bundle LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 RUN addgroup --disabled-password --gecos '' --gid 1000 rails \
     && adduser --disabled-password --gecos '' --uid 1000 --gid 1000 rails \
-    && mkdir $APP_HOME $BUNDLE_PATH
+    && mkdir $APP_HOME $BUNDLE_PATH \
+    && chown rails:rails $APP_HOME $BUNDLE_PATH
 USER 1000:1000
 WORKDIR $APP_HOME
 ENV PATH="${APP_HOME}/bin:${PATH}"
@@ -41,5 +42,5 @@ COPY package.json yarn.lock $APP_HOME/
 RUN yarn install
 
 COPY . $APP_HOME
-RUN chown rails:rails $APP_HOME $BUNDLE_PATH
+RUN chown -R rails:rails $APP_HOME $BUNDLE_PATH
 CMD ["bin/rails", "server", "-p", "3000", "-b", "0.0.0.0"]
