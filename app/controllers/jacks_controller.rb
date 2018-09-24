@@ -1,5 +1,5 @@
 class JacksController < ApplicationController
-  before_action :set_jack, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /jacks
   def index
@@ -46,11 +46,6 @@ class JacksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_jack
-      @jack = Jack.find(params[:id])
-    end
-
     # Only allow a trusted parameter "white list" through.
     def jack_params
       params.require(:jack).permit(
