@@ -1,9 +1,9 @@
 h1 Listing jacks
 
-table
-  thead
+table.table.table-hover
+  thead.thead-light
     tr
-      th
+      th email
       th
       th
       th
@@ -14,8 +14,6 @@ table
         td = jack.email
         td = link_to 'Show', jack
         td = link_to 'Edit', edit_jack_path(jack)
-        td = link_to 'Destroy', jack, data: { confirm: 'Are you sure?' }, method: :delete
+        td = link_to 'Destroy', jack, data: { confirm: 'Are you sure?' }, method: :delete, class: "text-danger"
 
-br
-
-= link_to 'New Jack', new_jack_path
+= link_to 'New Jack', new_jack_path, class: "btn btn-outline-primary"
