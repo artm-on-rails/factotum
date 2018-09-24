@@ -1,4 +1,7 @@
-.nested-fields
-  = f.input :trade_id, collection: Trade.all
-  = f.input :master
-  = link_to_remove_association "unoccupy", f
+.form-row
+  .col-sm-9
+    = f.input :trade_id, collection: Trade.all, wrapper: :horizontal_no_label
+  .col-sm-2
+    = f.input :master
+  .col-sm-1
+    = link_to_remove_association "del", f, class: "btn btn-outline-danger btn-sm"

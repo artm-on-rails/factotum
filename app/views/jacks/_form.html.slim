@@ -1,15 +1,20 @@
-= simple_form_for(@jack) do |f|
-  = f.error_notification
-  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+.card
+  .card-body
+    = simple_form_for(@jack, wrapper: :horizontal_form) do |f|
+      = f.error_notification
+      = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-  .form-inputs
-    = f.input :email
-    = f.input :password
-    = f.input :password_confirmation
-    h3 Trades
-    = f.simple_fields_for :occupations do |occupation_fields|
-      = render "occupation_fields", f: occupation_fields
-    .links
-      = link_to_add_association "add trade", f, :occupations
-  .form-actions
-    = f.button :submit
+      .form-inputs
+        = f.input :email
+        = f.input :password
+        = f.input :password_confirmation
+        .row
+          .col-sm-3
+            div Trades
+          .col-sm-9
+            = f.simple_fields_for :occupations do |occupation_fields|
+              = render "occupation_fields", f: occupation_fields
+            .links
+              = link_to_add_association "+", f, :occupations, class: "btn btn-outline-primary"
+      .form-actions
+        = f.button :submit
