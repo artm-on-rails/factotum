@@ -1,5 +1,5 @@
 class TradesController < ApplicationController
-  before_action :set_trade, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /trades
   def index
@@ -46,10 +46,6 @@ class TradesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_trade
-      @trade = Trade.find(params[:id])
-    end
 
     # Only allow a trusted parameter "white list" through.
     def trade_params
