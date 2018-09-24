@@ -2,7 +2,7 @@ require 'test_helper'
 
 class JacksControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @jack = create(:jack)
+    @jack = create(:jack, :of_all_trades)
     sign_in(@jack)
   end
 
