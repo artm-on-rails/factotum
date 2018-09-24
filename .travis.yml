@@ -1,6 +1,8 @@
 ---
 language: shell
 sudo: required
+env:
+  COMPOSE_FILE=docker-compose.yml:docker-compose.travis.yml
 script:
   - 'docker-compose build'
   - 'docker-compose run --rm app rails test'
