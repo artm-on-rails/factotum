@@ -54,7 +54,7 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     put jack_path(other_jack), params: { jack: {
       occupations_attributes: [
         { trade_id: trade.id }
-        ]
+      ]
     }}
     assert_response :redirect
     follow_redirect!
@@ -71,7 +71,7 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     put jack_path(other_jack), params: { jack: {
       occupations_attributes: [
         { trade_id: other_trade.id }
-        ]
+      ]
     }}
     assert_response :forbidden
   end
@@ -85,7 +85,7 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     put jack_path(other_jack), params: { jack: {
       occupations_attributes: [
         { id: occupation_id, trade_id: trade.id, _destroy: "1" }
-        ]
+      ]
     }}
     assert_response :redirect
     follow_redirect!
@@ -93,4 +93,18 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     assert_select "#notice", "Jack was successfully updated."
   end
 
+  test "Trade master cannot remove Jack from a not mastered trade" do
+    trade = create(:tailor)
+    trade_master = create(:jack, mastered_trades: [trade])
+    other_trade = create(:reaper)
+    other_jack = create(:jack, trades: [other_trade])
+    occupation_id = other_jack.occupations.first.id
+    sign_in(trade_master)
+    put jack_path(other_jack), params: { jack: {
+      occupations_attributes: [
+        { id: occupation_id, trade_id: trade.id, _destroy: "1" }
+      ]
+    }}
+    assert_response :forbidden
+  end
 end
