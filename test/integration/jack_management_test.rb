@@ -37,4 +37,12 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     }
     assert_response :forbidden
   end
+
+  test "Normal Jack can't edit other Jack" do
+    sign_in(@jack)
+    get edit_jack_path(@other_jack)
+    assert_response :forbidden
+    put jack_path(@other_jack), params: { jack: {} }
+    assert_response :forbidden
+  end
 end
