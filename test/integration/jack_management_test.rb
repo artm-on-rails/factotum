@@ -43,4 +43,22 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     put jack_path(other_jack), params: { jack: {} }
     assert_response :forbidden
   end
+
+  test "Trade master can assign Jack to the master's Trade" do
+    trade = create(:tailor)
+    trade_master = create(:jack, mastered_trades: [trade])
+    other_jack = create(:jack)
+    sign_in(trade_master)
+    get edit_jack_path(other_jack)
+    assert_response :success
+    put jack_path(other_jack), params: { jack: {
+      occupations_attributes: [
+        { trade_id: trade.id }
+        ]
+    }}
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    assert_select "#notice", "Jack was successfully updated."
+  end
 end
