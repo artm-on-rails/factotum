@@ -61,4 +61,18 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "#notice", "Jack was successfully updated."
   end
+
+  test "Trade master can't assign Jack to not mastered trades" do
+    trade = create(:tailor)
+    other_trade = create(:reaper)
+    trade_master = create(:jack, mastered_trades: [trade])
+    other_jack = create(:jack)
+    sign_in(trade_master)
+    put jack_path(other_jack), params: { jack: {
+      occupations_attributes: [
+        { trade_id: other_trade.id }
+        ]
+    }}
+    assert_response :forbidden
+  end
 end
