@@ -84,7 +84,7 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     sign_in(trade_master)
     put jack_path(other_jack), params: { jack: {
       occupations_attributes: [
-        { id: occupation_id, trade_id: trade.id, _destroy: "1" }
+        { id: occupation_id, _destroy: "1" }
       ]
     }}
     assert_response :redirect
@@ -102,7 +102,7 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     sign_in(trade_master)
     put jack_path(other_jack), params: { jack: {
       occupations_attributes: [
-        { id: occupation_id, trade_id: trade.id, _destroy: "1" }
+        { id: occupation_id, _destroy: "1" }
       ]
     }}
     assert_response :forbidden
