@@ -115,14 +115,14 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     other_jack = create(:jack, trades: [other_trade])
     occupation_id = other_jack.occupations.first.id
     sign_in(trade_master)
-    put jack_path(other_jack), params: { jack: {
-      occupations_attributes: [
-        { id: occupation_id, trade_id: trade.id }
-      ]
-    }}
-    assert_response :forbidden
-    other_jack.reload
-    refute other_jack.trades.include?(other_trade)
+    assert_no_changes "other_jack.trades" do
+      put jack_path(other_jack), params: { jack: {
+        occupations_attributes: [
+          { id: occupation_id, trade_id: trade.id }
+        ]
+      }}
+      other_jack.reload
+    end
   end
 
   test "Trade master cannot change existing occupation to a not mastered trade" do
@@ -132,12 +132,13 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     other_jack = create(:jack, trades: [trade])
     occupation_id = other_jack.occupations.first.id
     sign_in(trade_master)
-    put jack_path(other_jack), params: { jack: {
-      occupations_attributes: [
-        { id: occupation_id, trade_id: other_trade.id }
-      ]
-    }}
-    other_jack.reload
-    refute other_jack.trades.include?(other_trade)
+    assert_no_changes "other_jack.trades" do
+      put jack_path(other_jack), params: { jack: {
+        occupations_attributes: [
+          { id: occupation_id, trade_id: other_trade.id }
+        ]
+      }}
+      other_jack.reload
+    end
   end
 end
