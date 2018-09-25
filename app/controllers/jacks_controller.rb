@@ -1,6 +1,6 @@
 class JacksController < ApplicationController
   load_and_authorize_resource
-  before_action :authorize_nested_attributes_for_occupations, only: %i[create update]
+  authorize_nested_attributes_for :jack, :occupations
 
   # GET /jacks
   def index
@@ -56,23 +56,5 @@ class JacksController < ApplicationController
       :password_confirmation,
       occupations_attributes: %i[id trade_id master _destroy]
     )
-  end
-
-  def authorize_nested_attributes_for_occupations
-    return unless jack_params.include?(:occupations_attributes)
-    jack_params[:occupations_attributes].each do |attributes|
-      id = attributes[:id]
-      occupation =
-        id.present? ? Occupation.find(id) : Occupation.new(attributes)
-      assoc_action = 
-        if attributes.include?(:_destroy)
-          :destroy
-        elsif attributes.include?(:id)
-          :update
-        else
-          :create
-        end
-      authorize! assoc_action, occupation
-    end
   end
 end
