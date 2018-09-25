@@ -75,4 +75,22 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     }}
     assert_response :forbidden
   end
+
+  test "Trade master can remove Jack from the master's Trade" do
+    trade = create(:tailor)
+    trade_master = create(:jack, mastered_trades: [trade])
+    other_jack = create(:jack, trades: [trade])
+    occupation_id = other_jack.occupations.first.id
+    sign_in(trade_master)
+    put jack_path(other_jack), params: { jack: {
+      occupations_attributes: [
+        { id: occupation_id, trade_id: trade.id, _destroy: "1" }
+        ]
+    }}
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    assert_select "#notice", "Jack was successfully updated."
+  end
+
 end
