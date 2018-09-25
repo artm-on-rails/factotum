@@ -2,12 +2,9 @@ class Ability
   include CanCan::Ability
 
   def initialize(jack)
-    if jack.of_all_trades?
-      can :manage, :all
-    end
-
-    if jack.mastered_trades.present?
-      can %i[read update], Jack
-    end
+    return unless jack.is_master_of_some?
+    can %i[read update], Jack
+    return unless jack.of_all_trades?
+    can :manage, :all
   end
 end

@@ -35,4 +35,8 @@ class Jack < ApplicationRecord
   def is_master_of? trade
     of_all_trades? || mastered_trades.exists?(trade.id)
   end
+
+  def is_master_of_some?
+    of_all_trades? || mastered_trades.present?
+  end
 end
