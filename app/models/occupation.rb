@@ -4,4 +4,5 @@
 class Occupation < ApplicationRecord
   belongs_to :jack
   belongs_to :trade
+  attr_readonly :jack_id, :trade_id
 end
