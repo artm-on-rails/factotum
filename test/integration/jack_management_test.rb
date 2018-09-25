@@ -3,14 +3,15 @@ require 'test_helper'
 class JackManagementTest < ActionDispatch::IntegrationTest
   setup do
     @jack = create(:jack)
+    @other_jack = create(:jack)
     @jack_of_all_trades = create(:jack, :of_all_trades)
   end
 
   test "Jack of all trades can create new Jacks" do
     sign_in(@jack_of_all_trades)
-    get "/jacks/new"
+    get new_jack_path
     assert_response :success
-    post "/jacks", params: {
+    post jacks_path, params: {
       jack: {
         email: "new_jack@trades.org",
         password: "secret",
@@ -25,9 +26,9 @@ class JackManagementTest < ActionDispatch::IntegrationTest
 
   test "Normal Jack can't create new Jacks" do
     sign_in(@jack)
-    get "/jacks/new"
+    get new_jack_path
     assert_response :forbidden
-    post "/jacks", params: {
+    post jacks_path, params: {
       jack: {
         email: "new_jack@trades.org",
         password: "secret",
