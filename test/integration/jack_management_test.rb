@@ -1,14 +1,9 @@
 require 'test_helper'
 
 class JackManagementTest < ActionDispatch::IntegrationTest
-  setup do
-    @jack = create(:jack)
-    @other_jack = create(:jack)
-    @jack_of_all_trades = create(:jack, :of_all_trades)
-  end
-
   test "Jack of all trades can create new Jacks" do
-    sign_in(@jack_of_all_trades)
+    jack = create(:jack, :of_all_trades)
+    sign_in(jack)
     get new_jack_path
     assert_response :success
     post jacks_path, params: {
@@ -25,7 +20,8 @@ class JackManagementTest < ActionDispatch::IntegrationTest
   end
 
   test "Normal Jack can't create new Jacks" do
-    sign_in(@jack)
+    jack = create(:jack)
+    sign_in(jack)
     get new_jack_path
     assert_response :forbidden
     post jacks_path, params: {
@@ -39,10 +35,12 @@ class JackManagementTest < ActionDispatch::IntegrationTest
   end
 
   test "Normal Jack can't edit other Jack" do
-    sign_in(@jack)
-    get edit_jack_path(@other_jack)
+    jack = create(:jack)
+    other_jack = create(:jack)
+    sign_in(jack)
+    get edit_jack_path(other_jack)
     assert_response :forbidden
-    put jack_path(@other_jack), params: { jack: {} }
+    put jack_path(other_jack), params: { jack: {} }
     assert_response :forbidden
   end
 end
