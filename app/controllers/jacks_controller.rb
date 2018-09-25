@@ -62,20 +62,17 @@ class JacksController < ApplicationController
     return unless jack_params.include?(:occupations_attributes)
     jack_params[:occupations_attributes].each do |attributes|
       id = attributes[:id]
-      occupation = if id.present?
-        Occupation.find(id)
-      else
-        Occupation.new(attributes)
-      end
-      if attributes.include?(:_destroy)
-        authorize! :destroy, occupation
-      elsif attributes.include?(:id)
-        authorize! :update, occupation
-        occupation.assign_attributes(attributes)
-        authorize! :update, occupation
-      else
-        authorize! :create, occupation
-      end
+      occupation =
+        id.present? ? Occupation.find(id) : Occupation.new(attributes)
+      assoc_action = 
+        if attributes.include?(:_destroy)
+          :destroy
+        elsif attributes.include?(:id)
+          :update
+        else
+          :create
+        end
+      authorize! assoc_action, occupation
     end
   end
 end
