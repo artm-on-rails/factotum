@@ -35,10 +35,10 @@ RUN echo 'gem: --no-document' >> ~/.gemrc \
     && gem install bundler \
     && bundle config --global path /bundle
 
-COPY Gemfile* $APP_HOME/
+COPY --chown=rails:rails Gemfile* $APP_HOME/
 RUN bundle install
 
-COPY package.json yarn.lock $APP_HOME/
+COPY --chown=rails:rails package.json yarn.lock $APP_HOME/
 RUN yarn install
 
 COPY --chown=rails:rails . $APP_HOME
