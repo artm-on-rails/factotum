@@ -1,7 +1,7 @@
 class JacksController < ApplicationController
   load_and_authorize_resource
-  authorize_nested_attributes_for :jack, :occupations
-
+  authorize_nested_attributes
+  
   # GET /jacks
   def index
     @jacks = Jack.all
