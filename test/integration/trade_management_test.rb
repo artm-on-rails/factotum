@@ -1,16 +1,12 @@
 require 'test_helper'
 
 class TradeManagementTest < ActionDispatch::IntegrationTest
-  setup do
-    @jack = create(:jack)
-    @jack_of_all_trades = create(:jack, :of_all_trades)
-  end
-
   test "Jack of all trades can create new Trades" do
-    sign_in(@jack_of_all_trades)
-    get "/trades/new"
+    jack_of_all_trades = create(:jack, :of_all_trades)
+    sign_in(jack_of_all_trades)
+    get new_trade_path
     assert_response :success
-    post "/trades", params: {
+    post trades_path, params: {
       trade: {
         name: "Programmer",
       }
@@ -22,10 +18,11 @@ class TradeManagementTest < ActionDispatch::IntegrationTest
   end
 
   test "Normal Jack can't create new Trades" do
-    sign_in(@jack)
-    get "/trades/new"
+    jack = create(:jack)
+    sign_in(jack)
+    get new_trade_path
     assert_response :forbidden
-    post "/trades", params: {
+    post trades_path, params: {
       trade: {
         name: "Programmer",
       }
