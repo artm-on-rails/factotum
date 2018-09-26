@@ -141,4 +141,43 @@ class JackManagementTest < ActionDispatch::IntegrationTest
       other_jack.reload
     end
   end
+
+  test "Trade master can change master status of jacks in the mastered trade" do
+    trade = create(:tailor)
+    trade_master = create(:jack, mastered_trades: [trade])
+    jack = create(:jack, trades: [trade])
+    occupation = jack.occupations.first
+    sign_in(trade_master)
+    assert_changes "jack.reload.mastered_trades.count", from: 0, to: 1 do
+      put jack_path(jack), params: { jack: {
+        occupations_attributes: [
+          { id: occupation.id, master: true }
+        ]
+      }}
+    end
+    assert_changes "jack.reload.mastered_trades.count", from: 1, to: 0 do
+      put jack_path(jack), params: { jack: {
+        occupations_attributes: [
+          { id: occupation.id, master: false }
+        ]
+      }}
+    end
+  end
+
+  test "Trade master cannot change master status of jacks in the not mastered trade" do
+    trade = create(:tailor)
+    trade_master = create(:jack, mastered_trades: [trade])
+    other_trade = create(:reaper)
+    jack = create(:jack, trades: [other_trade])
+    occupation = jack.occupations.first
+    sign_in(trade_master)
+    assert_no_changes "jack.reload.mastered_trades.count" do
+      put jack_path(jack), params: { jack: {
+        occupations_attributes: [
+          { id: occupation.id, master: true }
+        ]
+      }}
+      assert_response :forbidden
+    end
+  end
 end
