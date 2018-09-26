@@ -49,6 +49,9 @@ class TradesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def trade_params
-      params.require(:trade).permit(:name)
+      params.require(:trade).permit(
+        :name,
+        occupations_attributes: %i[id jack_id master _destroy]
+      )
     end
 end

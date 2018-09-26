@@ -54,6 +54,7 @@ module AuthorizeNestedAttributes
             :update
           end
         @controller.authorize! assoc_action, assoc
+        assoc_builder.destroy(assoc) if assoc.new_record?
       end
     end
 

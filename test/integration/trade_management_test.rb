@@ -29,4 +29,22 @@ class TradeManagementTest < ActionDispatch::IntegrationTest
     }
     assert_response :forbidden
   end
+
+  test "Trade master can assign Jack to the master's Trade" do
+    trade = create(:tailor)
+    trade_master = create(:jack, mastered_trades: [trade])
+    jack = create(:jack)
+    sign_in(trade_master)
+    assert_changes "trade.reload.jacks.count", from: 1, to: 2 do
+      put trade_path(trade), params: { trade: {
+        occupations_attributes: [
+          { jack_id: jack.id }
+        ]
+      }}
+      assert_response :redirect
+      follow_redirect!
+      assert_response :success
+      assert_select "#notice", "Trade was successfully updated."
+    end
+  end
 end
