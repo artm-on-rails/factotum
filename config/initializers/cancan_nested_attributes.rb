@@ -36,7 +36,7 @@ module AuthorizeNestedAttributes
     def authorize_nested_attributes_for(reflection)
       attributes_param_name = "#{reflection.name}_attributes"
       return unless sanitize_parameters.include?(attributes_param_name)
-      assoc_class = reflection.klass
+      assoc_builder = resource_instance.send(reflection.name)
       attributes_list = normalize_nested_attributes_param(
         sanitize_parameters[attributes_param_name],
         reflection
@@ -44,7 +44,7 @@ module AuthorizeNestedAttributes
       attributes_list.each do |attributes|
         id = attributes[:id]
         assoc =
-          id.present? ? assoc_class.find(id) : assoc_class.new(attributes)
+          id.present? ? assoc_builder.find(id) : assoc_builder.new(attributes)
         assoc_action =
           if attributes.include?(:_destroy)
             :destroy
