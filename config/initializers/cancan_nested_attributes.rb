@@ -19,11 +19,15 @@ module AuthorizeNestedAttributes
         .each(&method(:authorize_nested_attributes_for))
     end
 
-    def authorize_nested_attributes_for reflection
+    def authorize_nested_attributes_for(reflection)
       attributes_param_name = "#{reflection.name}_attributes"
       return unless sanitize_parameters.include?(attributes_param_name)
       assoc_class = reflection.klass
-      sanitize_parameters[attributes_param_name].each do |attributes|
+      attributes_list = normalize_nested_attributes_param(
+        sanitize_parameters[attributes_param_name],
+        reflection
+      )
+      attributes_list.each do |attributes|
         id = attributes[:id]
         assoc =
           id.present? ? assoc_class.find(id) : assoc_class.new(attributes)
@@ -37,6 +41,15 @@ module AuthorizeNestedAttributes
           end
         @controller.authorize! assoc_action, assoc
       end
+    end
+
+    def normalize_nested_attributes_param(param, reflection)
+      param = param.values if multi_object_hash?(param, reflection.macro)
+      Array(param)
+    end
+
+    def multi_object_hash?(param, macro)
+      macro == :has_many && !param.kind_of?(Array) && !param.include?(:id)
     end
 
     def associations_with_accepted_nested_attributes
