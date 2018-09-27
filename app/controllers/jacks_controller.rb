@@ -6,10 +6,6 @@ class JacksController < ApplicationController
     @jacks = Jack.all
   end
 
-  # GET /jacks/1
-  def show
-  end
-
   # GET /jacks/new
   def new
     @jack = Jack.new
@@ -24,7 +20,7 @@ class JacksController < ApplicationController
     @jack = Jack.new(jack_params)
 
     if @jack.save
-      redirect_to @jack, notice: 'Jack was successfully created.'
+      redirect_to edit_jack_path(@jack), notice: 'Jack was successfully created.'
     else
       render :new
     end
@@ -33,7 +29,7 @@ class JacksController < ApplicationController
   # PATCH/PUT /jacks/1
   def update
     if @jack.update(jack_params)
-      redirect_to @jack, notice: 'Jack was successfully updated.'
+      redirect_to edit_jack_path(@jack), notice: 'Jack was successfully updated.'
     else
       render :edit
     end

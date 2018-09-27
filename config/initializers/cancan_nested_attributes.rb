@@ -44,9 +44,9 @@ module AuthorizeNestedAttributes
       attributes_list.each do |attributes|
         id = attributes[:id]
         assoc =
-          id.present? ? assoc_builder.find(id) : assoc_builder.new(attributes)
+          id.present? ? assoc_builder.find(id) : assoc_builder.new(attributes.except(:_destroy))
         assoc_action =
-          if attributes.include?(:_destroy)
+          if attributes[:_destroy]
             :destroy
           elsif assoc.new_record?
             :create

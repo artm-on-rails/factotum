@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :jacks
   authenticate :jack do
     root to: "application#welcome"
-    resources :jacks
+    resources :jacks, except: [:show]
     resources :trades
   end
 end

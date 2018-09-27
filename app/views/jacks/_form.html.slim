@@ -1,6 +1,8 @@
-.card
-  .card-body
-    = simple_form_for(@jack, wrapper: :horizontal_form) do |f|
+= simple_form_for(@jack, wrapper: :horizontal_form) do |f|
+  .card.mt-3
+    .card-header
+      = title
+    .card-body
       = f.error_notification
       = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
@@ -9,12 +11,19 @@
         = f.input :password
         = f.input :password_confirmation
         .row
-          .col-sm-3
-            div Trades
-          .col-sm-9
-            = f.simple_fields_for :occupations do |occupation_fields|
-              = render "occupation_fields", f: occupation_fields
-            .links
-              = link_to_add_association "+", f, :occupations, class: "btn btn-outline-primary"
+          - if @jack.of_all_trades?
+            .col-sm-12
+              | is Jack of all trades
+          - else
+            .col-sm-3
+              div Trades
+            .col-sm-9
+              = f.simple_fields_for :occupations do |occupation_fields|
+                = render "occupation_fields", f: occupation_fields
+              - if @jack.unoccupied_trades.present?
+                .links
+                  = link_to_add_association "add trade", f, :occupations, class: "btn btn-light btn-sm"
+    .card-footer
       .form-actions
-        = f.button :submit
+        => f.button :submit, class: "btn btn-outline-primary"
+        = link_to 'Back', jacks_path, class: "btn btn-light"
