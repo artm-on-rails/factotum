@@ -5,15 +5,13 @@ table.table.table-hover
     tr
       th email
       th
-      th
-      th
 
   tbody
     - @jacks.each do |jack|
-      tr
+      tr data-href=jack_path(jack)
         td = jack.email
-        td = link_to 'Show', jack
-        td = link_to 'Edit', edit_jack_path(jack)
-        td = link_to 'Destroy', jack, data: { confirm: 'Are you sure?' }, method: :delete, class: "text-danger"
+        td.text-right
+          = link_to 'Destroy', jack, data: { confirm: 'Are you sure?' }, \
+            method: :delete, class: "text-danger"
 
 = link_to 'New Jack', new_jack_path, class: "btn btn-outline-primary"
