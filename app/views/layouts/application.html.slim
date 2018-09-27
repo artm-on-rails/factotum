@@ -6,17 +6,20 @@ html
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload"
     = javascript_include_tag "application", "data-turbolinks-track": "reload"
   body
-    .navbar.navbar-expand-sm.navbar-light.bg-light
+    .navbar.navbar-expand-sm.navbar-dark.bg-dark
       a.navbar-brand href="#" Factotum
-      button.navbar-toggler type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
-        span.navbar-toggler-icon
-      #navbarSupportedContent.collapse.navbar-collapse
-        ul.navbar-nav.mr-auto
-          li.nav-item
-            = link_to "Jacks", jacks_path, class: "nav-link"
-          li.nav-item
-            = link_to "Trades", trades_path, class: "nav-link"
-          li.nav-item
-            a.nav-link href="#" Profile
+      - if jack_signed_in?
+        button.navbar-toggler type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+          span.navbar-toggler-icon
+        #navbarSupportedContent.collapse.navbar-collapse
+          ul.navbar-nav.mr-auto
+            li.nav-item
+              = link_to "Jacks", jacks_path, class: "nav-link"
+            li.nav-item
+              = link_to "Trades", trades_path, class: "nav-link"
+            li.nav-item
+              a.nav-link href="#" Profile
+            li.nav-item
+            = link_to "Log out", destroy_jack_session_path, method: :delete, class: "nav-link"
     .container
       = yield
