@@ -18,11 +18,12 @@
             .col-sm-3
               div Trades
             .col-sm-9
-              = f.simple_fields_for :occupations do |occupation_fields|
-                = render "occupation_fields", f: occupation_fields
-              - if @jack.unoccupied_trades.present?
-                .links
-                  = link_to_add_association "add trade", f, :occupations, class: "btn btn-light btn-sm"
+              #occupations
+                = f.simple_fields_for :occupations do |occupation_fields|
+                  = render "occupation_fields", f: occupation_fields
+                - if @jack.unoccupied_trades.present?
+                  .links
+                    = link_to_add_association "add trade", f, :occupations, class: "btn btn-light btn-sm"
     .card-footer
       .form-actions
         => f.button :submit, class: "btn btn-outline-primary"
