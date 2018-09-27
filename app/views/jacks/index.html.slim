@@ -4,12 +4,14 @@ table.table.table-hover
   thead.thead-light
     tr
       th email
+      th trades
       th
 
   tbody
     - @jacks.each do |jack|
       tr data-href=jack_path(jack)
         td = jack.email
+        td = render "trade_badges", jack: jack
         td.text-right
           - if can? :destroy, jack
             = link_to jack, data: { confirm: 'Are you sure?' }, \

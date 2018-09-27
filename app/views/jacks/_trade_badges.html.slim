@@ -1,0 +1,7 @@
+- jack.occupations.each do |occupation|
+  => link_to occupation.trade
+    span.trade-badge class=(occupation.master ? "master" : nil)
+      = occupation.trade.name
+- if jack.of_all_trades?
+  span.trade-badge.of_all_trades>
+    | Of all trades

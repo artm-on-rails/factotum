@@ -10,11 +10,11 @@ class Jack < ApplicationRecord
   has_many :occupations
 
   # Jack's trades
-  has_many :trades, through: :occupations
+  has_many :trades, -> { order(:name) }, through: :occupations
 
   # Trade's of which Jack is a master
   has_many :mastered_trades,
-           -> { where occupations: { master: true } },
+           -> { where(occupations: { master: true }) },
            through: :occupations,
            source: :trade
 

@@ -1,0 +1,12 @@
+.trade-badge {
+  @extend .badge;
+  @extend .badge-secondary;
+
+  &.of_all_trades {
+    @extend .badge-primary;
+  }
+
+  &.master {
+    @extend .badge-dark
+  }
+}
