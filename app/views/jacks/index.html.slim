@@ -11,7 +11,9 @@ table.table.table-hover
       tr data-href=jack_path(jack)
         td = jack.email
         td.text-right
-          = link_to 'Destroy', jack, data: { confirm: 'Are you sure?' }, \
-            method: :delete, class: "text-danger"
+          - if can? :destroy, jack
+            = link_to jack, data: { confirm: 'Are you sure?' }, \
+              method: :delete, class: "text-danger" do
+              i.fas.fa-minus
 
 = link_to 'New Jack', new_jack_path, class: "btn btn-outline-primary"
