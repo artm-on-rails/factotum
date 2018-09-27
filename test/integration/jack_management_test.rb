@@ -44,49 +44,52 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
   end
 
-  test "Trade master can assign Jack to the master's Trade" do
+  test "Trade master can assign Jack to a mastered Trade" do
     trade = create(:tailor)
     trade_master = create(:jack, mastered_trades: [trade])
-    other_jack = create(:jack)
+    jack = create(:jack)
     sign_in(trade_master)
-    get edit_jack_path(other_jack)
-    assert_response :success
-    put jack_path(other_jack), params: { jack: {
-      occupations_attributes: [
-        { trade_id: trade.id }
-      ]
-    }}
+    assert_changes "jack.trades.count", from: 0, to: 1 do
+      put jack_path(jack), params: { jack: {
+        occupations_attributes: [
+          { trade_id: trade.id }
+        ]
+      }}
+    end
     assert_response :redirect
     follow_redirect!
     assert_response :success
     assert_select "#notice", "Jack was successfully updated."
   end
 
-  test "Trade master can't assign Jack to not mastered trades" do
+  test "Trade master can't assign Jack to a not mastered trade" do
     trade = create(:tailor)
     other_trade = create(:reaper)
     trade_master = create(:jack, mastered_trades: [trade])
-    other_jack = create(:jack)
+    jack = create(:jack)
     sign_in(trade_master)
-    put jack_path(other_jack), params: { jack: {
-      occupations_attributes: [
-        { trade_id: other_trade.id }
-      ]
-    }}
+    assert_no_changes "jack.trades.count" do
+      put jack_path(jack), params: { jack: {
+        occupations_attributes: [
+          { trade_id: other_trade.id }
+        ]
+      }}
+    end
     assert_response :forbidden
   end
 
-  test "Trade master can remove Jack from the master's Trade" do
+  test "Trade master can remove Jack from a mastered Trade" do
     trade = create(:tailor)
     trade_master = create(:jack, mastered_trades: [trade])
-    other_jack = create(:jack, trades: [trade])
-    occupation_id = other_jack.occupations.first.id
+    jack = create(:jack, trades: [trade])
     sign_in(trade_master)
-    put jack_path(other_jack), params: { jack: {
-      occupations_attributes: [
-        { id: occupation_id, _destroy: "1" }
-      ]
-    }}
+    assert_changes "jack.trades.count", from: 1, to: 0 do
+      put jack_path(jack), params: { jack: {
+        occupations_attributes: [
+          { id: jack.occupations.first.id, _destroy: "1" }
+        ]
+      }}
+    end
     assert_response :redirect
     follow_redirect!
     assert_response :success
@@ -97,49 +100,16 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     trade = create(:tailor)
     trade_master = create(:jack, mastered_trades: [trade])
     other_trade = create(:reaper)
-    other_jack = create(:jack, trades: [other_trade])
-    occupation_id = other_jack.occupations.first.id
+    jack = create(:jack, trades: [other_trade])
     sign_in(trade_master)
-    put jack_path(other_jack), params: { jack: {
-      occupations_attributes: [
-        { id: occupation_id, _destroy: "1" }
-      ]
-    }}
+    assert_no_changes "jack.trades.count", from: 0 do
+      put jack_path(jack), params: { jack: {
+        occupations_attributes: [
+          { id: jack.occupations.first.id, _destroy: "1" }
+        ]
+      }}
+    end
     assert_response :forbidden
-  end
-
-  test "Trade master cannot change existing occupation from a not mastered trade" do
-    trade = create(:tailor)
-    trade_master = create(:jack, mastered_trades: [trade])
-    other_trade = create(:reaper)
-    other_jack = create(:jack, trades: [other_trade])
-    occupation_id = other_jack.occupations.first.id
-    sign_in(trade_master)
-    assert_no_changes "other_jack.trades" do
-      put jack_path(other_jack), params: { jack: {
-        occupations_attributes: [
-          { id: occupation_id, trade_id: trade.id }
-        ]
-      }}
-      other_jack.reload
-    end
-  end
-
-  test "Trade master cannot change existing occupation to a not mastered trade" do
-    trade = create(:tailor)
-    trade_master = create(:jack, mastered_trades: [trade])
-    other_trade = create(:reaper)
-    other_jack = create(:jack, trades: [trade])
-    occupation_id = other_jack.occupations.first.id
-    sign_in(trade_master)
-    assert_no_changes "other_jack.trades" do
-      put jack_path(other_jack), params: { jack: {
-        occupations_attributes: [
-          { id: occupation_id, trade_id: other_trade.id }
-        ]
-      }}
-      other_jack.reload
-    end
   end
 
   test "Trade master can change master status of jacks in the mastered trade" do
@@ -148,14 +118,14 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     jack = create(:jack, trades: [trade])
     occupation = jack.occupations.first
     sign_in(trade_master)
-    assert_changes "jack.reload.mastered_trades.count", from: 0, to: 1 do
+    assert_changes "jack.mastered_trades.count", from: 0, to: 1 do
       put jack_path(jack), params: { jack: {
         occupations_attributes: [
           { id: occupation.id, master: true }
         ]
       }}
     end
-    assert_changes "jack.reload.mastered_trades.count", from: 1, to: 0 do
+    assert_changes "jack.mastered_trades.count", from: 1, to: 0 do
       put jack_path(jack), params: { jack: {
         occupations_attributes: [
           { id: occupation.id, master: false }
@@ -171,13 +141,13 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     jack = create(:jack, trades: [other_trade])
     occupation = jack.occupations.first
     sign_in(trade_master)
-    assert_no_changes "jack.reload.mastered_trades.count" do
+    assert_no_changes "jack.mastered_trades.count" do
       put jack_path(jack), params: { jack: {
         occupations_attributes: [
           { id: occupation.id, master: true }
         ]
       }}
-      assert_response :forbidden
     end
+    assert_response :forbidden
   end
 end

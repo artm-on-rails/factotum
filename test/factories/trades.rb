@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :trade do
+    sequence(:name) { |n| "Trade #{n}"}
+
     factory :tailor do
       name { "Tailor" }
     end
