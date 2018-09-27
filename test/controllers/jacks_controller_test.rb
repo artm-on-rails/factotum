@@ -21,12 +21,7 @@ class JacksControllerTest < ActionDispatch::IntegrationTest
       post jacks_url, params: { jack: { email: "jack@trades.com" } }
     end
 
-    assert_redirected_to jack_url(Jack.last)
-  end
-
-  test "should show jack" do
-    get jack_url(@jack)
-    assert_response :success
+    assert_redirected_to edit_jack_url(Jack.last)
   end
 
   test "should get edit" do
@@ -36,7 +31,7 @@ class JacksControllerTest < ActionDispatch::IntegrationTest
 
   test "should update jack" do
     patch jack_url(@jack), params: { jack: { email: "jack@moved.com" } }
-    assert_redirected_to jack_url(@jack)
+    assert_redirected_to edit_jack_url(@jack)
   end
 
   test "should destroy jack" do
