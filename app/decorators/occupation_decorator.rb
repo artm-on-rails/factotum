@@ -5,6 +5,10 @@ module OccupationDecorator
   end
 
   def destroy_tooltip
-    "Unoccupy #{jack.email} from #{trade.name} trade"
+    if new_record?
+      "Cancel adding this trade"
+    else
+      "Unoccupy #{jack.email} from #{trade.name} trade"
+    end
   end
 end
