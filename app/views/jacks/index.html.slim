@@ -15,7 +15,8 @@ table.table.table-hover
         td.text-right
           - if can? :destroy, jack
             = link_to jack, data: { confirm: 'Are you sure?' }, \
-              method: :delete, class: "text-danger" do
+              method: :delete, class: "text-danger", \
+              data: { toggle: "tooltip" }, title: "Delete jack" do
               i.fas.fa-minus
 
 = link_to 'New Jack', new_jack_path, class: "btn btn-outline-primary"

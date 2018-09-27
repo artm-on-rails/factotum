@@ -1,7 +1,14 @@
 - jack.occupations.each do |occupation|
   => link_to occupation.trade
-    span.trade-badge class=(occupation.master ? "master" : nil)
+    span.trade-badge[
+        class=(occupation.master ? "master" : nil)
+        data-toggle="tooltip"
+        title=occupation.tooltip
+      ]
       = occupation.trade.name
 - if jack.of_all_trades?
-  span.trade-badge.of_all_trades>
+  span.trade-badge.of_all_trades>[
+      data-toggle="tooltip"
+      title=jack.of_all_trades_tooltip
+    ]
     | Of all trades
