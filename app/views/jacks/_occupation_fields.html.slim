@@ -8,9 +8,11 @@
         data: { toggle: "tooltip" }, \
         title: occupation.destroy_tooltip
         i.fas.fa-minus
-  .col-sm-2
-    = f.input :master, disabled: cannot?(:edit, occupation)
-  .col-sm-9
+  .col-sm-3
+    = f.input :master, disabled: cannot?(:edit, occupation), \
+      wrapper_html: { class: "material-switch" }, \
+      label_html: { class: "bg-primary" }
+  .col-sm-8
     - if occupation.trade
       = occupation.trade.name
     - else
