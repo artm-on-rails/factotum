@@ -11,7 +11,7 @@
         wrapper: :horizontal_no_label, \
         include_blank: false
   .col-sm-1
-    - if can?(:edit, occupation)
+    - if can?(:destroy, occupation)
       = link_to_remove_association f, \
         class: "text-danger", \
         data: { toggle: "tooltip" }, \
