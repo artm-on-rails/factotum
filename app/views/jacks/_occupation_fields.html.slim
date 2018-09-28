@@ -1,5 +1,6 @@
 - occupation = f.object
 .nested-fields.form-row
+  = f.hidden_field :id, disabled: cannot?(:edit, occupation)
   .col-sm-2
     = f.input :master, disabled: cannot?(:edit, occupation)
   .col-sm-9
