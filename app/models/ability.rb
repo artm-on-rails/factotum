@@ -6,7 +6,7 @@ class Ability
     can %i[read update], Jack
     can %i[read update], Trade, id: jack.mastered_trade_ids
     can :manage, Occupation, trade_id: jack.mastered_trade_ids
-    can :destroy, Occupation, id: nil
+    can %i[edit destroy], Occupation, id: nil
     return unless jack.of_all_trades?
     can :manage, :all
   end
