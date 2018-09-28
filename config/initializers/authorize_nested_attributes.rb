@@ -53,7 +53,8 @@ module AuthorizeNestedAttributes
           else
             :update
           end
-        @controller.authorize! assoc_action, assoc
+        any_change = assoc_action == :_destroy || attributes.except(:_destory, :id).present?
+        @controller.authorize! assoc_action, assoc if any_change
         assoc_builder.destroy(assoc) if assoc.new_record?
       end
     end
