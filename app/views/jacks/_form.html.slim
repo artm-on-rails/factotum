@@ -11,19 +11,18 @@
         = f.input :password
         = f.input :password_confirmation
         .row
-          - if @jack.of_all_trades?
-            .col-sm-12
-              | is Jack of all trades
-          - else
             .col-sm-3
               div Trades
             .col-sm-9
-              #occupations
-                = f.simple_fields_for :occupations do |occupation_fields|
-                  = render "occupation_fields", f: occupation_fields
-                - if @jack.assignable_trades.present?
-                  .links
-                    = link_to_add_association "add trade", f, :occupations, class: "btn btn-light btn-sm"
+              - if @jack.of_all_trades?
+                = render "trade_badges", jack: @jack
+              - else
+                #occupations
+                  = f.simple_fields_for :occupations do |occupation_fields|
+                    = render "occupation_fields", f: occupation_fields
+                  - if @jack.assignable_trades.present?
+                    .links
+                      = link_to_add_association "add trade", f, :occupations, class: "btn btn-light btn-sm"
     .card-footer
       .form-actions
         => f.button :submit, class: "btn btn-outline-primary"

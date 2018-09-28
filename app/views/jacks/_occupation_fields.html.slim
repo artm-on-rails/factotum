@@ -1,6 +1,13 @@
 - occupation = f.object
 .nested-fields.form-row
   = f.hidden_field :id, disabled: cannot?(:edit, occupation)
+  .col-sm-1
+    - if can?(:destroy, occupation)
+      = link_to_remove_association f, \
+        class: "text-danger", \
+        data: { toggle: "tooltip" }, \
+        title: occupation.destroy_tooltip
+        i.fas.fa-minus
   .col-sm-2
     = f.input :master, disabled: cannot?(:edit, occupation)
   .col-sm-9
@@ -11,10 +18,3 @@
         collection: @jack.assignable_trades, \
         wrapper: :horizontal_no_label, \
         include_blank: false
-  .col-sm-1
-    - if can?(:destroy, occupation)
-      = link_to_remove_association f, \
-        class: "text-danger", \
-        data: { toggle: "tooltip" }, \
-        title: occupation.destroy_tooltip
-        i.fas.fa-minus
