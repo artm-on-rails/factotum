@@ -1,8 +1,8 @@
 // based on https://bootsnipp.com/snippets/featured/material-design-switch
 
-$track-height: 30px;
-$track-width: 56px;
-$thumb-diameter: 24px;
+$track-height: 24px;
+$track-width: 40px;
+$thumb-diameter: 18px;
 $transition-duration: 0.3s;
 $label-gap: 6px;
 
@@ -11,15 +11,17 @@ $thumb-radius: $thumb-diameter / 2;
 $thumb-height: $thumb-diameter;
 $thumb-width: $thumb-diameter;
 $thumb-stick-out: $thumb-radius - $track-half-height;
-$track-margin-top: $thumb-stick-out;
-$thumb-margin-top: 0;
 
+$track-top: $thumb-stick-out;
+$thumb-top: 0;
 $switch-width: $track-width + 2 * $thumb-stick-out;
 $thumb-left-off: - $label-gap - $track-width - 2 * $thumb-stick-out;
 $thumb-left-on: - $label-gap - $thumb-width;
 $track-left: - $label-gap - $thumb-stick-out - $track-width;
 
 @if $track-height > $thumb-diameter {
+  $track-top: 0;
+  $thumb-top: - $thumb-stick-out;
   $switch-width: $track-width;
   $thumb-left-off: - $label-gap - $track-width - $thumb-stick-out;
   $thumb-left-on: - $label-gap - $thumb-width + $thumb-stick-out;
@@ -33,33 +35,33 @@ $track-left: - $label-gap - $thumb-stick-out - $track-width;
     height: 0px;
     margin-left: $switch-width + $label-gap;
 
-    // track
-    &::before {
+    &::before, &::after {
       content: '';
       position: absolute;
+      transition: all $transition-duration ease-in-out;
+    }
+
+    // track
+    &::before {
       height: $track-height;
       width: $track-width;
-      margin-top: $track-margin-top;
+      top: $track-top;
       left: $track-left;
       border-radius: $track-half-height;
       background: rgb(0, 0, 0);
       box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
       opacity: 0.3;
-      transition: all $transition-duration ease-in-out;
     }
 
     // thumb
     &::after {
-      content: '';
-      position: absolute;
       height: $thumb-height;
       width: $thumb-width;
-      margin-top: $thumb-margin-top;
+      top: $thumb-top;
       left: $thumb-left-off;
       border-radius: $thumb-radius;
       background: rgb(255, 255, 255);
       box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-      transition: all $transition-duration ease-in-out;
     }
   }
 
