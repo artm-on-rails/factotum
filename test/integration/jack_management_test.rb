@@ -150,4 +150,33 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     end
     assert_response :forbidden
   end
+
+  test "JofAT can edit other jack's details" do
+    johannes = create(:jack, :of_all_trades)
+    jack = create(:jack, email: "old_email@trade.com")
+    sign_in(johannes)
+    assert_changes "jack.reload.email",
+      from: "old_email@trade.com",
+      to: "new_email@trades.com" do
+      put jack_path(jack), params: { jack: {
+        email: "new_email@trades.com"
+      }}
+    end
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    assert_select "#notice", "Jack was successfully updated."
+  end
+
+  test "Trade master can't edit other Jack's details" do
+    trade = create(:trade)
+    trade_master = create(:jack, mastered_trades: [trade])
+    jack = create(:jack, trades: [trade])
+    sign_in(trade_master)
+    assert_no_changes "jack.reload.email" do
+      put jack_path(jack), params: { jack: {
+        email: "new_email@trades.com"
+      }}
+    end
+  end
 end
