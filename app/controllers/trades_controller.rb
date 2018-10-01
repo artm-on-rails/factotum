@@ -62,7 +62,7 @@ class TradesController < ApplicationController
     action = params[:action]
     permitted_keys = []
     permitted_keys += detail_keys if can? :"#{action}_details", @trade
-    permitted_keys += occupation_keys if can? :"#{action}_occupations", @trade
+    permitted_keys += occupation_keys if can? :manage, Occupation
     params.require(:trade).permit(permitted_keys)
   end
 end

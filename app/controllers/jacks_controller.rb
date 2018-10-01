@@ -58,7 +58,7 @@ class JacksController < ApplicationController
     action = params[:action]
     permitted_keys = []
     permitted_keys += detail_keys if can? :"#{action}_details", @jack
-    permitted_keys += occupation_keys if can? :"#{action}_occupations", @jack
+    permitted_keys += occupation_keys if can? :manage, Occupation
     params.require(:jack).permit(permitted_keys)
   end
 end
