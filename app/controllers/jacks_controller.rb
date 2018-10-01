@@ -43,14 +43,20 @@ class JacksController < ApplicationController
 
   private
 
+  # param keys permitted with <action>_details ability
+  def detail_keys
+    %i[email password password_confirmation]
+  end
+
+  # param keys permitted with <action>_occupations ability
+  def occupation_keys
+    [ occupations_attributes: %i[id trade_id master _destroy] ]
+  end
+
   # Only allow a trusted parameter "white list" through.
   def jack_params
-    detail_keys = %i[email password password_confirmation]
-    occupation_keys = [
-        occupations_attributes: %i[id trade_id master _destroy]
-    ]
-    permitted_keys = []
     action = params[:action]
+    permitted_keys = []
     permitted_keys += detail_keys if can? :"#{action}_details", @jack
     permitted_keys += occupation_keys if can? :"#{action}_occupations", @jack
     params.require(:jack).permit(permitted_keys)
