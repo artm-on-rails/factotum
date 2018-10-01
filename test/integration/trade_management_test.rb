@@ -96,4 +96,33 @@ class TradeManagementTest < ActionDispatch::IntegrationTest
       }}
     end
   end
+
+  test "JofAT can edit trade's details" do
+    johannes = create(:jack, :of_all_trades)
+    trade = create(:trade, name: "Original name")
+    sign_in(johannes)
+    assert_changes "trade.reload.name",
+      from: "Original name",
+      to: "New and improved name" do
+      put trade_path(trade), params: { trade: {
+        name: "New and improved name"
+      }}
+    end
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    assert_select "#notice", "Trade was successfully updated."
+  end
+
+  test "Trade master can't edit trade's details" do
+    trade = create(:trade)
+    trade_master = create(:jack, mastered_trades: [trade])
+    sign_in(trade_master)
+    assert_no_changes "trade.reload.name" do
+      put trade_path(trade), params: { trade: {
+        name: "New and improved name"
+      }}
+    end
+  end
+
 end
