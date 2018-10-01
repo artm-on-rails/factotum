@@ -2,6 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(jack)
+    can %i[read update], Jack, id: jack.id
     return unless jack.is_master_of_some?
     can %i[read update], Jack
     can %i[read update], Trade, id: jack.mastered_trade_ids

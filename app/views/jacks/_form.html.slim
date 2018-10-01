@@ -19,7 +19,7 @@
               - else
                 #occupations
                   = f.simple_fields_for :occupations do |occupation_fields|
-                    = render "occupation_fields", f: occupation_fields
+                    = render "jacks/occupation_fields", f: occupation_fields
                   - if @jack.assignable_trades.present?
                     .links
                       = link_to_add_association "add trade", f, :occupations, class: "btn btn-light btn-sm"
