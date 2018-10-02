@@ -1,24 +1,7 @@
-# README
+# Jacks of various trades
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an example of user management with users in overlapping groups and
+special users with special permissions with respect to the groups.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+User model is `Jack`, user group model is `Trade` and join model is
+`Occupation`. 
