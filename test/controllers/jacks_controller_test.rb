@@ -25,7 +25,8 @@ class JacksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    get edit_jack_url(@jack)
+    other_jack = create(:jack)
+    get edit_jack_url(other_jack)
     assert_response :success
   end
 

@@ -13,6 +13,7 @@ class JacksController < ApplicationController
 
   # GET /jacks/1/edit
   def edit
+    redirect_to edit_profile_path if @jack == current_jack
   end
 
   # POST /jacks

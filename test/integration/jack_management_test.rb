@@ -179,4 +179,11 @@ class JackManagementTest < ActionDispatch::IntegrationTest
       }}
     end
   end
+
+  test "Current jack edit redirects to profile edit" do
+    jack = create(:jack)
+    sign_in(jack)
+    get edit_jack_path(jack)
+    assert_redirected_to edit_profile_path
+  end
 end
