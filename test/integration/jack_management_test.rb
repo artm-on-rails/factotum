@@ -102,7 +102,7 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     other_trade = create(:reaper)
     jack = create(:jack, trades: [other_trade])
     sign_in(trade_master)
-    assert_no_changes "jack.trades.count", from: 0 do
+    assert_no_changes "jack.trades.count" do
       put jack_path(jack), params: { jack: {
         occupations_attributes: [
           { id: jack.occupations.first.id, _destroy: "1" }
