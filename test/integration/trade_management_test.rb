@@ -125,4 +125,29 @@ class TradeManagementTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "Trade master may not unmaster himself from a mastered trade via trades controller" do
+    trade = create(:tailor)
+    trade_master = create(:jack, mastered_trades: [trade])
+    sign_in(trade_master)
+    assert_no_changes "trade_master.mastered_trades.count" do
+      put trade_path(trade), params: { trade: {
+        occupations_attributes: [
+          { id: trade_master.occupations.first.id, master: false }
+        ]
+      }}
+    end
+  end
+
+  test "Trade master may not remove himself from a mastered trade via trades controller" do
+    trade = create(:tailor)
+    trade_master = create(:jack, mastered_trades: [trade])
+    sign_in(trade_master)
+    assert_no_changes "trade_master.trades.count" do
+      put trade_path(trade), params: { trade: {
+        occupations_attributes: [
+          { id: trade_master.occupations.first.id, _destroy: "1" }
+        ]
+      }}
+    end
+  end
 end
