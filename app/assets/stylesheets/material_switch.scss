@@ -79,5 +79,10 @@ $track-left: - $label-gap - $thumb-stick-out - $track-width;
         background: inherit;
         left: $thumb-left-on;
     }
+
+    &:disabled + label {
+      opacity: 0.3;
+      pointer-events: none;
+    }
   }
 }
