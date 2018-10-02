@@ -186,4 +186,17 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     get edit_jack_path(jack)
     assert_redirected_to edit_profile_path
   end
+
+  test "Trade master may not remove himself from a mastered trade via jack controller" do
+    trade = create(:tailor)
+    trade_master = create(:jack, mastered_trades: [trade])
+    sign_in(trade_master)
+    assert_no_changes "trade_master.trades.count" do
+      put jack_path(trade_master), params: { jack: {
+        occupations_attributes: [
+          { id: trade_master.occupations.first.id, _destroy: "1" }
+        ]
+      }}
+    end
+  end
 end
