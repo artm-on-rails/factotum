@@ -9,4 +9,8 @@
   &.master {
     @extend .badge-dark
   }
+
+  a {
+    color: inherit;
+  }
 }
