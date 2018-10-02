@@ -3,12 +3,10 @@ class JacksController < ApplicationController
 
   # GET /jacks
   def index
-    @jacks = Jack.all
   end
 
   # GET /jacks/new
   def new
-    @jack = Jack.new
   end
 
   # GET /jacks/1/edit
@@ -18,8 +16,6 @@ class JacksController < ApplicationController
 
   # POST /jacks
   def create
-    @jack = Jack.new(jack_params)
-
     if @jack.save
       redirect_to edit_jack_path(@jack), notice: 'Jack was successfully created.'
     else

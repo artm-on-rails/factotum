@@ -3,7 +3,6 @@ class TradesController < ApplicationController
 
   # GET /trades
   def index
-    @trades = Trade.all
   end
 
   # GET /trades/1
@@ -12,7 +11,6 @@ class TradesController < ApplicationController
 
   # GET /trades/new
   def new
-    @trade = Trade.new
   end
 
   # GET /trades/1/edit
@@ -21,8 +19,6 @@ class TradesController < ApplicationController
 
   # POST /trades
   def create
-    @trade = Trade.new(trade_params)
-
     if @trade.save
       redirect_to @trade, notice: 'Trade was successfully created.'
     else
