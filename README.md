@@ -18,7 +18,7 @@ the actual application code appears as a normal CanCanCan-based code. The
 extension is quite limited in its functionality and only implements the bare
 minimum required for this example. 
 
-Forms use [simple_form][9]'s implementation of a form builder and [cocoon][10] 
+Forms use [simple_form][9]'s form builder implementation and [cocoon][10] 
 helpers for editing nested models.
 
 [1]: app/models/jack.rb
