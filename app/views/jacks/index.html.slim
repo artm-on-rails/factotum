@@ -29,4 +29,5 @@ table.table.table-hover
               title: "Delete jack"
               i.fas.fa-minus
 
-= link_to 'New Jack', new_jack_path, class: "btn btn-outline-primary"
+- if can? :create, Jack
+  = link_to 'New Jack', new_jack_path, class: "btn btn-outline-primary"
