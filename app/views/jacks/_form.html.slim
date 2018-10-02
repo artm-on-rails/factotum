@@ -1,4 +1,6 @@
-- form_options = local_assigns.fetch(:form_options, {}).merge(wrapper: :horizontal_form)
+- form_options = { wrapper: :horizontal_form }
+- form_options[:url] = profile_path if @jack == current_jack
+
 = simple_form_for(@jack, form_options) do |f|
   .card
     .card-header
