@@ -10,7 +10,13 @@ table.table.table-hover
   tbody
     - @jacks.each do |jack|
       tr data-href=edit_jack_path(jack)
-        td = jack.email
+        td
+          - if jack == current_jack
+            b: i
+              => jack.email
+              '(yourself)
+          - else
+            => jack.email
         td = render "trade_badges", jack: jack
         td.text-right
           - if can? :destroy, jack
