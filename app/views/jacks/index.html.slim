@@ -9,7 +9,7 @@ table.table.table-hover
 
   tbody
     - @jacks.each do |jack|
-      tr data-href=edit_jack_path(jack)
+      tr data-href=(can?(:edit, jack) ? edit_jack_path(jack) : nil)
         td
           - if jack == current_jack
             b: i

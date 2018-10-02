@@ -2,12 +2,11 @@
 .nested-fields.form-row
   = f.hidden_field :id, disabled: cannot?(:edit, occupation)
   .col-sm-1
-    - if can?(:destroy, occupation)
-      = link_to_remove_association f, \
-        class: "text-danger", \
-        data: { toggle: "tooltip" }, \
-        title: occupation.destroy_tooltip
-        i.fas.fa-minus
+    = link_to_remove_association f, \
+      class: "btn text-danger btn-sm #{cannot?(:destroy, occupation) ? "disabled" : nil}", \
+      data: { toggle: "tooltip" }, \
+      title: occupation.destroy_tooltip
+      i.fas.fa-minus
   .col-sm-3
     = f.input :master, disabled: cannot?(:edit, occupation), \
       wrapper_html: { class: "material-switch" }, \

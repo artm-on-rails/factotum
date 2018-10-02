@@ -1,5 +1,8 @@
 - form_options = { wrapper: :horizontal_form }
-- form_options[:url] = profile_path if @jack == current_jack
+- submit_text = nil
+- if @jack == current_jack
+  - form_options[:url] = profile_path
+  - submit_text = "Profiel bijwerken"
 
 = simple_form_for(@jack, form_options) do |f|
   .card
@@ -10,15 +13,16 @@
       = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
       .form-inputs
-        = f.input :email
-        = f.input :password
-        = f.input :password_confirmation
+        = f.input :email, disabled: cannot?(:edit_details, @jack)
+        - if can? :edit_details, @jack
+          = f.input :password
+          = f.input :password_confirmation
         .row
             .col-sm-3
               div Trades
             .col-sm-9
               - if @jack.of_all_trades?
-                = render "trade_badges", jack: @jack
+                = render "jacks/trade_badges", jack: @jack
               - else
                 #occupations
                   = f.simple_fields_for :occupations do |occupation_fields|
@@ -28,5 +32,5 @@
                       = link_to_add_association "add trade", f, :occupations, class: "btn btn-light btn-sm"
     .card-footer
       .form-actions
-        => f.button :submit, class: "btn btn-outline-primary"
+        => f.button :submit, submit_text, class: "btn btn-outline-primary"
         = link_to 'Back', jacks_path, class: "btn btn-light"
