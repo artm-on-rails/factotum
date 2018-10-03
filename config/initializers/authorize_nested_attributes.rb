@@ -1,15 +1,5 @@
 module AuthorizeNestedAttributes
   module ControllerResourceAdditions
-    def self.included(base)
-      base.class_eval do
-        alias_method :original_load_and_authorize_resource, :load_and_authorize_resource
-        def load_and_authorize_resource
-          original_load_and_authorize_resource
-          authorize_nested_attributes if may_have_nested_attributes?
-        end
-      end
-    end
-
     def authorize_nested_attributes
       associations_with_accepted_nested_attributes
         .each(&method(:authorize_nested_attributes_for))
@@ -58,6 +48,16 @@ module AuthorizeNestedAttributes
       resource_class.reflect_on_all_associations.select do |reflection|
         attributes_writer_name = "#{reflection.name}_attributes="
         resource_instance.respond_to?(attributes_writer_name)
+      end
+    end
+
+    def self.included(base)
+      base.class_eval do
+        alias_method :original_authorize_resource, :authorize_resource
+        def authorize_resource
+          original_authorize_resource
+          authorize_nested_attributes if may_have_nested_attributes?
+        end
       end
     end
   end
