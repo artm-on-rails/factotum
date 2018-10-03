@@ -51,6 +51,8 @@ group :development do
   gem "pry-rails"
   # Timezone info
   gem "tzinfo-data"
+  # static code analyzer and code formatter
+  gem "rubocop", require: false
   # Windows
   group :windows do
     gem "wdm", require: Gem.win_platform?
