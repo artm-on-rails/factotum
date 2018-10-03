@@ -8,8 +8,8 @@ User model is [`Jack`][1], user group model is [`Trade`][2] and join model is
 with [CanCanCan][4] gem (see [Defining Abilities][6] at CanCanCan wiki). 
 Authorization is performed in [`JacksController`][11], [`TradesController`][12] 
 and [`ProfilesController`][13]. Abilities are also used for hiding / disabling
-parts of the views (implemented in [Jack views][14], neglected in Trade views, 
-Profile views reuse partials from the Jack views) and for further strengthening
+parts of the views (implemented in [Jacks views][14], neglected in Trades views, 
+Profiles views reuse partials from the Jack views) and for further strengthening
 the [Strong Parameters][15] by making permitted params depend on current ability.
 
 The permissions schema is tested with [integration tests][7], to make sure that 
