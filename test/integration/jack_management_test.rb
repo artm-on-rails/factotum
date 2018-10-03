@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class JackManagementTest < ActionDispatch::IntegrationTest
   test "Jack of all trades can create new Jacks" do

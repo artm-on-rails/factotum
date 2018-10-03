@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Controller for trade resource.
 #
 # This controller is very similar to JackController, see it for all the details
@@ -5,25 +7,21 @@ class TradesController < ApplicationController
   load_and_authorize_resource
 
   # GET /trades
-  def index
-  end
+  def index; end
 
   # GET /trades/1
-  def show
-  end
+  def show; end
 
   # GET /trades/new
-  def new
-  end
+  def new; end
 
   # GET /trades/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /trades
   def create
     if @trade.save
-      redirect_to @trade, notice: 'Trade was successfully created.'
+      redirect_to @trade, notice: "Trade was successfully created."
     else
       render :new
     end
@@ -32,7 +30,7 @@ class TradesController < ApplicationController
   # PATCH/PUT /trades/1
   def update
     if @trade.update(trade_params)
-      redirect_to @trade, notice: 'Trade was successfully updated.'
+      redirect_to @trade, notice: "Trade was successfully updated."
     else
       render :edit
     end
@@ -41,7 +39,7 @@ class TradesController < ApplicationController
   # DELETE /trades/1
   def destroy
     @trade.destroy
-    redirect_to trades_url, notice: 'Trade was successfully destroyed.'
+    redirect_to trades_url, notice: "Trade was successfully destroyed."
   end
 
   private

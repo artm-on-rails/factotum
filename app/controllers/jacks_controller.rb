@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Controller for jacks resource
 class JacksController < ApplicationController
   # find appropriate Jack(s), checks that `current_jack` can perform current
@@ -11,12 +13,10 @@ class JacksController < ApplicationController
   # `@jacks` to the view.
 
   # GET /jacks
-  def index
-  end
+  def index; end
 
   # GET /jacks/new
-  def new
-  end
+  def new; end
 
   # GET /jacks/1/edit
   def edit
@@ -27,7 +27,7 @@ class JacksController < ApplicationController
   # POST /jacks
   def create
     if @jack.save
-      redirect_to edit_jack_path(@jack), notice: 'Jack was successfully created.'
+      redirect_to edit_jack_path(@jack), notice: "Jack was successfully created."
     else
       render :new
     end
@@ -36,7 +36,7 @@ class JacksController < ApplicationController
   # PATCH/PUT /jacks/1
   def update
     if @jack.update(jack_params)
-      redirect_to edit_jack_path(@jack), notice: 'Jack was successfully updated.'
+      redirect_to edit_jack_path(@jack), notice: "Jack was successfully updated."
     else
       render :edit
     end
@@ -45,7 +45,7 @@ class JacksController < ApplicationController
   # DELETE /jacks/1
   def destroy
     @jack.destroy
-    redirect_to jacks_url, notice: 'Jack was successfully destroyed.'
+    redirect_to jacks_url, notice: "Jack was successfully destroyed."
   end
 
   private

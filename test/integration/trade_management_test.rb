@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class TradeManagementTest < ActionDispatch::IntegrationTest
   test "Jack of all trades can create new Trades" do
@@ -8,7 +10,7 @@ class TradeManagementTest < ActionDispatch::IntegrationTest
     assert_response :success
     post trades_path, params: {
       trade: {
-        name: "Programmer",
+        name: "Programmer"
       }
     }
     assert_response :redirect
@@ -24,7 +26,7 @@ class TradeManagementTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
     post trades_path, params: {
       trade: {
-        name: "Programmer",
+        name: "Programmer"
       }
     }
     assert_response :forbidden

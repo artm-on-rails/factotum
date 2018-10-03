@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Trade is a group of Jacks
 class Trade < ApplicationRecord
   # occupations associate jacks and trades, as well as encapsulate the "master"

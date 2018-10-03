@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Jack represents a person in the world, jack may belong to many trades,
 # some of which jack might have mastered.
 class Jack < ApplicationRecord
@@ -34,14 +36,14 @@ class Jack < ApplicationRecord
   # Trade. Unlike the prverbial "Jack of all trades, master of none", our Jack
   # of all trades is a master of every possible trade, even the trades not in
   # Jack's occupations.
-  def is_master_of? trade
+  def master_of?(trade)
     of_all_trades? || mastered_trades.exists?(trade.id)
   end
 
   # true if jack is a master of at least one trade
   # this predicate is necessary because trade masters have extra abilities:
   # e.g. a trade master can edit a jack (at least jack's occupations)
-  def is_master_of_some?
+  def master_of_some?
     of_all_trades? || mastered_trades.present?
   end
 end

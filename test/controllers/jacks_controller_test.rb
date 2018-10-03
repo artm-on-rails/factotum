@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class JacksControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -17,7 +19,7 @@ class JacksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create jack" do
-    assert_difference('Jack.count') do
+    assert_difference("Jack.count") do
       post jacks_url, params: { jack: { email: "jack@trades.com" } }
     end
 
@@ -37,7 +39,7 @@ class JacksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy jack" do
-    assert_difference('Jack.count', -1) do
+    assert_difference("Jack.count", -1) do
       delete jack_url(@jack)
     end
 

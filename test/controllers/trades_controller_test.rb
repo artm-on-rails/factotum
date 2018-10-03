@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class TradesControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -18,7 +20,7 @@ class TradesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create trade" do
-    assert_difference('Trade.count') do
+    assert_difference("Trade.count") do
       post trades_url, params: { trade: { name: "Tester" } }
     end
 
@@ -41,7 +43,7 @@ class TradesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy trade" do
-    assert_difference('Trade.count', -1) do
+    assert_difference("Trade.count", -1) do
       delete trade_url(@trade)
     end
 

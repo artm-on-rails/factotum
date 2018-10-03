@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Profile (i.e. current_jack) controller
 #
 # Note: an alternative approach could have been to add non-standard actions
@@ -17,13 +19,12 @@ class ProfilesController < ApplicationController
   end
 
   # GET /jacks/1/edit
-  def edit
-  end
+  def edit; end
 
   # PATCH/PUT /jacks/1
   def update
     if @jack.update(jack_params)
-      redirect_to edit_profile_path, notice: 'Profile was successfully updated.'
+      redirect_to edit_profile_path, notice: "Profile was successfully updated."
     else
       render :edit
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OccupationDecorator
   def tooltip
     master = self.master ? "Master " : ""

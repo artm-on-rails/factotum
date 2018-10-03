@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class OccupationTest < ActiveSupport::TestCase
   test "Occupation's trade is readonly" do
