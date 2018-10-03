@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Occupation decorator: methods added to an occupation model in views
 module OccupationDecorator
   def tooltip
     master = self.master ? "Master " : ""

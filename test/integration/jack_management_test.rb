@@ -136,7 +136,8 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "Trade master cannot change master status of jacks in the not mastered trade" do
+  test "Trade master cannot change master status of jacks" \
+       " in a not mastered trade" do
     trade = create(:tailor)
     trade_master = create(:jack, mastered_trades: [trade])
     other_trade = create(:reaper)
@@ -189,7 +190,8 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     assert_redirected_to edit_profile_path
   end
 
-  test "Trade master may not remove himself from a mastered trade via jack controller" do
+  test "Trade master may not remove himself from a mastered trade" \
+       " via jack controller" do
     trade = create(:tailor)
     trade_master = create(:jack, mastered_trades: [trade])
     sign_in(trade_master)

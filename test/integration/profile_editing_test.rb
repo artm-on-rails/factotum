@@ -74,7 +74,8 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "Trade master may not remove himself from a mastered trade via profile controller" do
+  test "Trade master may not remove himself from a mastered trade" \
+       " via profile controller" do
     trade = create(:tailor)
     jack = create(:jack, mastered_trades: [trade])
     sign_in(jack)
