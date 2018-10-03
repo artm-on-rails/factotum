@@ -4,7 +4,7 @@ This is an example of user management with users in overlapping groups and
 special users with special permissions with respect to the groups.
 
 User model is [`Jack`][1], user group model is [`Trade`][2] and join model is
-[`Occupation`][3]. User/group permissions are established by [Ability][5] model 
+[`Occupation`][3]. User/group permissions are established by [`Ability`][5] model 
 with [CanCanCan][4] gem (see [Defining Abilities][6] at CanCanCan wiki).
 
 The permissions schema is tested with [integration tests][7], to make sure that 
