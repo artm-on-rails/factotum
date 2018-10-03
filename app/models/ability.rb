@@ -27,8 +27,10 @@ class Ability
     cannot %i[create update destroy], Occupation, jack_id: jack.id
     # this ability makes newly created abilities in the form be editable
     can %i[edit destroy], Occupation, id: nil
-
     return unless jack.of_all_trades?
+
+    # Jack of all trades' abilities
+    # =============================
     # Jack of all trades' may do anything at all to everything. This includes
     # custom abilities such as :update_details
     can :manage, :all

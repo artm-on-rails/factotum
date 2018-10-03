@@ -18,6 +18,8 @@ class Jack < ApplicationRecord
            through: :occupations,
            source: :trade
 
+  # defines an attributes writer #occupation_attributes=
+  # this allows passing occupation_attributes to the mass assignment methods
   accepts_nested_attributes_for \
     :occupations,
     reject_if: :all_blank,
@@ -36,6 +38,9 @@ class Jack < ApplicationRecord
     of_all_trades? || mastered_trades.exists?(trade.id)
   end
 
+  # true if jack is a master of at least one trade
+  # this predicate is necessary because trade masters have extra abilities:
+  # e.g. a trade master can edit a jack (at least jack's occupations)
   def is_master_of_some?
     of_all_trades? || mastered_trades.present?
   end

@@ -22,6 +22,7 @@ class JacksControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to edit_jack_url(Jack.last)
+    assert_equal Jack.last.email, "jack@trades.com"
   end
 
   test "should get edit" do

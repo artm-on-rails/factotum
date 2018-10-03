@@ -1,3 +1,6 @@
+# Controller for trade resource.
+#
+# This controller is very similar to JackController, see it for all the details
 class TradesController < ApplicationController
   load_and_authorize_resource
 
