@@ -2,10 +2,11 @@ AllCops:
   TargetRubyVersion: 2.5.1
   TargetRailsVersion: 5.2.1
   Exclude:
-    - 'db/**/*'
-    - 'config/**/*'
-    - 'script/**/*'
-    - 'bin/{rails,rake}'
+    - "db/**/*"
+    - "config/**/*"
+    - "script/**/*"
+    - "bin/{bundle,rails,rake,setup,spring,update,yarn}"
+    - "config.ru"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
