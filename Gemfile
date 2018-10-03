@@ -55,6 +55,8 @@ group :development do
   gem "tzinfo-data"
   # static code analyzer and code formatter
   gem "rubocop", require: false
+  # static code analysis security scanner
+  gem "brakeman", require: false
   # Windows
   group :windows do
     gem "wdm", require: Gem.win_platform?
