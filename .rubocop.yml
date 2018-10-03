@@ -10,3 +10,7 @@ AllCops:
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+Metrics/ClassLength:
+  Exclude:
+    - "test/**/*_test.rb"
