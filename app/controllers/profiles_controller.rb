@@ -1,6 +1,16 @@
+# Profile (i.e. current_jack) controller
+#
+# Note: an alternative approach could have been to add non-standard actions
+# to the JacksController, reusing some of the common logic
 class ProfilesController < ApplicationController
+  # this controller has a different resource loading logic from the
+  # default load-by-id provided by the CanCanCan. Therefore instead of
+  # `load_and_authorize_resource` a custom loading + standard authorization
+  # is used
   before_action :assign_jack
   authorize_resource :jack
+
+  # For the rest this controller works similar to the JacksController
 
   def show
     redirect_to edit_profile_path
