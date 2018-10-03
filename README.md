@@ -5,7 +5,12 @@ special users with special permissions with respect to the groups.
 
 User model is [`Jack`][1], user group model is [`Trade`][2] and join model is
 [`Occupation`][3]. User/group permissions are established by [`Ability`][5] model 
-with [CanCanCan][4] gem (see [Defining Abilities][6] at CanCanCan wiki).
+with [CanCanCan][4] gem (see [Defining Abilities][6] at CanCanCan wiki). 
+Authorization is performed in [`JacksController`][11], [`TradesController`][12] 
+and [`ProfilesController`][13]. Abilities are also used for hiding / disabling
+parts of the views (implemented in [Jack views][14], neglected in Trade views, 
+Profile views reuse partials from the Jack views) and for further strengthening
+the [Strong Parameters][15] by making permitted params depend on current ability.
 
 The permissions schema is tested with [integration tests][7], to make sure that 
 all components are connected correctly.
@@ -31,3 +36,8 @@ helpers for editing nested models.
 [8]: config/initializers/authorize_nested_attributes.rb
 [9]: https://github.com/plataformatec/simple_form
 [10]: https://github.com/nathanvda/cocoon
+[11]: app/controllers/jacks_controller.rb
+[12]: app/controllers/trades_controller.rb
+[13]: app/controllers/profiles_controller.rb
+[14]: app/views/jacks
+[15]: https://edgeguides.rubyonrails.org/action_controller_overview.html#strong-parameters
