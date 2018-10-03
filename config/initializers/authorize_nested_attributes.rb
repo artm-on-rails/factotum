@@ -1,18 +1,4 @@
 module AuthorizeNestedAttributes
-  module ControllerAdditions
-    module ClassMethods
-      def authorize_nested_attributes(*args)
-        args = [only: %i[create update]] unless args.present?
-        cancan_resource_class
-          .add_before_action(self, :authorize_nested_attributes, *args)
-      end
-    end
-
-    def self.included(base)
-      base.extend ClassMethods
-    end
-  end
-
   module ControllerResourceAdditions
     def self.included(base)
       base.class_eval do
@@ -76,10 +62,6 @@ module AuthorizeNestedAttributes
     end
   end
 end
-
-ActionController::Base.include(
-  AuthorizeNestedAttributes::ControllerAdditions
-)
 
 CanCan::ControllerResource.include(
   AuthorizeNestedAttributes::ControllerResourceAdditions
