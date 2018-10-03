@@ -9,10 +9,10 @@ Bundler.require(*Rails.groups)
 module Factotum
   class Application < Rails::Application
     config.time_zone = "Amsterdam"
-        config.i18n.enforce_available_locales = true
-        config.i18n.default_locale = :nl
-        config.i18n.available_locales = [:nl, :en]
-        config.i18n.load_path += Dir["#{Rails.root}/config/locales/*/*"]
+    config.i18n.enforce_available_locales = true
+    config.i18n.default_locale = :nl
+    config.i18n.available_locales = [:nl, :en]
+    config.i18n.load_path += Dir["#{Rails.root}/config/locales/*/*"]
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 

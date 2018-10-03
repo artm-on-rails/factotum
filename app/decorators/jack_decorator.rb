@@ -5,6 +5,7 @@ module JackDecorator
 
   def assignable_trades
     return [] if of_all_trades?
+
     Trade.accessible_by(current_ability) - trades
   end
 end

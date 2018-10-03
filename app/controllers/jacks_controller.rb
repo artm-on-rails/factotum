@@ -57,7 +57,7 @@ class JacksController < ApplicationController
 
   # param keys permitted with <action>_occupations ability
   def occupation_keys
-    [ occupations_attributes: %i[id trade_id master _destroy] ]
+    [occupations_attributes: %i[id trade_id master _destroy]]
   end
 
   # Only allow a trusted parameter "white list" through.

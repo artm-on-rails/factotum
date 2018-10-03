@@ -40,6 +40,7 @@ module AuthorizeNestedAttributes
     def authorize_nested_attributes_for(reflection)
       attributes_param_name = "#{reflection.name}_attributes"
       return unless sanitize_parameters.include?(attributes_param_name)
+
       assoc_builder = resource_instance.send(reflection.name)
       attributes_list = normalize_nested_attributes_param(
         sanitize_parameters[attributes_param_name],

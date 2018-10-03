@@ -5,6 +5,6 @@ if Rails.env.development?
   #   Started GET "/" for 160.68.205.231 at ...
   #
   BetterErrors::Middleware.allow_ip! "160.68.205.231"
-  BetterErrors::Middleware.allow_ip! "172.18.0.2"  
+  BetterErrors::Middleware.allow_ip! "172.18.0.2"
   BetterErrors.application_root = Rails.root.parent.to_s
 end

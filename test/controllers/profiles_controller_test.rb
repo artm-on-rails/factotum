@@ -19,7 +19,7 @@ class ProfilesControllerTest < ActionDispatch::IntegrationTest
   test "should update jack" do
     patch profile_path, params: { jack: {
       email: "new_email@trades.com"
-    }}
+    } }
     assert_redirected_to edit_profile_path
   end
 end

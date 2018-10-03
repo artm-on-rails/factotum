@@ -54,7 +54,7 @@ class JackManagementTest < ActionDispatch::IntegrationTest
         occupations_attributes: [
           { trade_id: trade.id }
         ]
-      }}
+      } }
     end
     assert_response :redirect
     follow_redirect!
@@ -73,7 +73,7 @@ class JackManagementTest < ActionDispatch::IntegrationTest
         occupations_attributes: [
           { trade_id: other_trade.id }
         ]
-      }}
+      } }
     end
     assert_response :forbidden
   end
@@ -88,7 +88,7 @@ class JackManagementTest < ActionDispatch::IntegrationTest
         occupations_attributes: [
           { id: jack.occupations.first.id, _destroy: "1" }
         ]
-      }}
+      } }
     end
     assert_response :redirect
     follow_redirect!
@@ -107,7 +107,7 @@ class JackManagementTest < ActionDispatch::IntegrationTest
         occupations_attributes: [
           { id: jack.occupations.first.id, _destroy: "1" }
         ]
-      }}
+      } }
     end
     assert_response :forbidden
   end
@@ -123,14 +123,14 @@ class JackManagementTest < ActionDispatch::IntegrationTest
         occupations_attributes: [
           { id: occupation.id, master: true }
         ]
-      }}
+      } }
     end
     assert_changes "jack.mastered_trades.count", from: 1, to: 0 do
       put jack_path(jack), params: { jack: {
         occupations_attributes: [
           { id: occupation.id, master: false }
         ]
-      }}
+      } }
     end
   end
 
@@ -146,7 +146,7 @@ class JackManagementTest < ActionDispatch::IntegrationTest
         occupations_attributes: [
           { id: occupation.id, master: true }
         ]
-      }}
+      } }
     end
     assert_response :forbidden
   end
@@ -156,11 +156,11 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     jack = create(:jack, email: "old_email@trade.com")
     sign_in(johannes)
     assert_changes "jack.reload.email",
-      from: "old_email@trade.com",
-      to: "new_email@trades.com" do
+                   from: "old_email@trade.com",
+                   to: "new_email@trades.com" do
       put jack_path(jack), params: { jack: {
         email: "new_email@trades.com"
-      }}
+      } }
     end
     assert_response :redirect
     follow_redirect!
@@ -176,7 +176,7 @@ class JackManagementTest < ActionDispatch::IntegrationTest
     assert_no_changes "jack.reload.email" do
       put jack_path(jack), params: { jack: {
         email: "new_email@trades.com"
-      }}
+      } }
     end
   end
 
@@ -196,7 +196,7 @@ class JackManagementTest < ActionDispatch::IntegrationTest
         occupations_attributes: [
           { id: trade_master.occupations.first.id, _destroy: "1" }
         ]
-      }}
+      } }
     end
   end
 end

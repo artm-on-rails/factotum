@@ -49,7 +49,7 @@ class TradeManagementTest < ActionDispatch::IntegrationTest
         occupations_attributes: [
           { jack_id: jack.id }
         ]
-      }}
+      } }
       assert_response :redirect
       follow_redirect!
       assert_response :success
@@ -67,7 +67,7 @@ class TradeManagementTest < ActionDispatch::IntegrationTest
         occupations_attributes: [
           { id: jack.occupations.first.id, _destroy: "1" }
         ]
-      }}
+      } }
     end
     assert_response :redirect
     follow_redirect!
@@ -86,14 +86,14 @@ class TradeManagementTest < ActionDispatch::IntegrationTest
         occupations_attributes: [
           { id: occupation.id, master: true }
         ]
-      }}
+      } }
     end
     assert_changes "jack.mastered_trades.count", from: 1, to: 0 do
       put trade_path(trade), params: { trade: {
         occupations_attributes: [
           { id: occupation.id, master: false }
         ]
-      }}
+      } }
     end
   end
 
@@ -102,11 +102,11 @@ class TradeManagementTest < ActionDispatch::IntegrationTest
     trade = create(:trade, name: "Original name")
     sign_in(johannes)
     assert_changes "trade.reload.name",
-      from: "Original name",
-      to: "New and improved name" do
+                   from: "Original name",
+                   to: "New and improved name" do
       put trade_path(trade), params: { trade: {
         name: "New and improved name"
-      }}
+      } }
     end
     assert_response :redirect
     follow_redirect!
@@ -121,7 +121,7 @@ class TradeManagementTest < ActionDispatch::IntegrationTest
     assert_no_changes "trade.reload.name" do
       put trade_path(trade), params: { trade: {
         name: "New and improved name"
-      }}
+      } }
     end
   end
 
@@ -134,7 +134,7 @@ class TradeManagementTest < ActionDispatch::IntegrationTest
         occupations_attributes: [
           { id: trade_master.occupations.first.id, master: false }
         ]
-      }}
+      } }
     end
   end
 
@@ -147,7 +147,7 @@ class TradeManagementTest < ActionDispatch::IntegrationTest
         occupations_attributes: [
           { id: trade_master.occupations.first.id, _destroy: "1" }
         ]
-      }}
+      } }
     end
   end
 end
