@@ -4,10 +4,10 @@ $(document).on("turbolinks:load", function() {
   .on("cocoon:before-remove", beforeRemove);
 
   function beforeInsert(e, node) {
-    var container = this;
     finalizeLastInserted();
+    var container = this;
     var assignedTradeIds = $(container)
-      .find(".jack_occupations_trade_id[data-trade-id]")
+      .find(".jack_occupations_trade_id[data-trade-id]:visible")
       .map(function() {
         return $(this).data("trade-id");
       })
@@ -17,15 +17,16 @@ $(document).on("turbolinks:load", function() {
       select.find(`option[value="${tradeId}"]`).remove();
     }
     $(node).addClass("last-inserted");
+    console.log("length:", select.find("option").length, "elements:", select.find("option").get());
     if (select.find("option").length == 1) {
       finalizeLastInserted(node);
-      $(".links").hide();
+      $(".links").addClass("d-none");
     }
   }
 
   function beforeRemove(e, node) {
     finalizeLastInserted();
-    $(".links").show();
+    $(".links").removeClass("d-none");
   }
 
   function finalizeLastInserted(node) {
