@@ -35,7 +35,6 @@ $(document).on("turbolinks:load", function() {
       var tradeId = $(this).find(".jack_occupations_trade_id select").val();
       var select = $(this).find(".trade_id_wrapper select");
       var hidden = `<input type="hidden" name="${select.attr("name")}" value="${tradeId}">`;
-      console.log(select,hidden);
       $(this).find(".trade_id_wrapper")
         .html(`<div class="jack_occupations_trade_id" data-trade-id=${tradeId}>${tradeName}${hidden}</div>`)
       $(this).removeClass("last-inserted");
