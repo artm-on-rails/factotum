@@ -28,7 +28,9 @@
                   = f.simple_fields_for :occupations do |occupation_fields|
                     = render "jacks/occupation_fields", f: occupation_fields
                   .links class=(@jack.assignable_trades.empty? ? "d-none" : nil)
-                    = link_to_add_association "add trade", f, :occupations, class: "btn btn-light btn-sm"
+                    = link_to_add_association "add trade", f, :occupations, \
+                      class: "btn btn-light btn-sm", \
+                      partial: "jacks/occupation_fields"
     .card-footer
       .form-actions
         => f.button :submit, submit_text, class: "btn btn-outline-primary"
