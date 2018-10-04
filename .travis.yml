@@ -2,7 +2,11 @@
 language: shell
 sudo: required
 env:
-  COMPOSE_FILE=docker-compose.yml:docker-compose.travis.yml
-script:
+  - COMPOSE_FILE=docker-compose.yml:docker-compose.travis.yml
+before_script:
   - 'docker-compose build'
-  - 'docker-compose run --rm app rails db:create db:schema:load test'
+  - 'docker-compose run --rm app rails db:create db:schema:load'
+script:
+  - 'docker-compose run --rm app bundle exec brakeman -qA'
+  - 'docker-compose run --rm app bundle exec rubocop -f s -DPR --color'
+  - 'docker-compose run --rm app rails test'
