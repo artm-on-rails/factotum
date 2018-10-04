@@ -11,11 +11,12 @@
     = f.input :master, disabled: cannot?(:edit, occupation), \
       wrapper_html: { class: "material-switch" }, \
       label_html: { class: "bg-primary" }
-  .col-sm-8
+  .col-sm-8.trade_id_wrapper
     - if occupation.trade
-      = occupation.trade.name
+      .jack_occupations_trade_id data-trade-id=occupation.trade_id
+        = occupation.trade.name
     - else
       = f.input :trade_id, \
-        collection: @jack.assignable_trades, \
+        collection: Trade.accessible_by(current_ability), \
         wrapper: :horizontal_no_label, \
         include_blank: false
