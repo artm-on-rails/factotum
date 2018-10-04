@@ -7,6 +7,6 @@ before_script:
   - 'docker-compose build'
   - 'docker-compose run --rm app rails db:create db:schema:load'
 script:
-  - 'docker-compose run --rm app bundle exec brakeman -qA'
   - 'docker-compose run --rm app bundle exec rubocop -f s -DPR --color'
   - 'docker-compose run --rm app rails test'
+  - 'docker-compose run --rm app bundle exec brakeman -qA'
