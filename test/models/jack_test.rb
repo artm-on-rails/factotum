@@ -30,4 +30,12 @@ class JackTest < ActiveSupport::TestCase
     johannes = create(:jack, :of_all_trades)
     assert johannes.master_of?(tailor)
   end
+
+  test "Jack can't be occupied by the same trade twice" do
+    trade = create(:trade)
+    jack = create(:jack)
+    assert_raises ActiveRecord::RecordNotUnique do
+      jack.trades = [trade, trade]
+    end
+  end
 end
