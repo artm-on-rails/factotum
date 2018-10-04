@@ -5,7 +5,7 @@ class Trade < ApplicationRecord
   # occupations associate jacks and trades, as well as encapsulate the "master"
   # relationship. It's an internal detail of a Trade, it shouldn't be necessary
   # to use it directly much.
-  has_many :occupations
+  has_many :occupations, dependent: :destroy
 
   # Trade's Jacks
   has_many :jacks, through: :occupations

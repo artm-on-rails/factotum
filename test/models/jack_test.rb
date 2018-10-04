@@ -5,7 +5,7 @@ require "test_helper"
 class JackTest < ActiveSupport::TestCase
   test "Jack is not of all trades by default" do
     jack = create(:jack)
-    refute jack.of_all_trades?
+    assert_not jack.of_all_trades?
   end
 
   test "Jack of all trades reports that status" do
@@ -16,7 +16,7 @@ class JackTest < ActiveSupport::TestCase
   test "Jack isn't master of his trades by default" do
     tailor = create(:tailor)
     jack = create(:jack, trades: [tailor])
-    refute jack.master_of?(tailor)
+    assert_not jack.master_of?(tailor)
   end
 
   test "Jack is master of his mastered trades" do

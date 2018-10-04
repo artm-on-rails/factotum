@@ -9,7 +9,7 @@ class Jack < ApplicationRecord
   # occupations associate jacks and trades, as well as encapsulate the "master"
   # relationship. It's an internal detail of a Jack, it shouldn't be necessary
   # to use it directly much.
-  has_many :occupations
+  has_many :occupations, dependent: :destroy
 
   # Jack's trades
   has_many :trades, -> { order(:name) }, through: :occupations
