@@ -85,4 +85,10 @@ $track-left: - $label-gap - $thumb-stick-out - $track-width;
       pointer-events: none;
     }
   }
+
+  @each $color, $value in $theme-colors {
+    &.material-switch-#{$color} label {
+      @extend .bg-#{$color};
+    }
+  }
 }

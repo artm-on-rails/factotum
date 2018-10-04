@@ -10,8 +10,8 @@
   .col-sm-3
     = f.input :master, \
       wrapper: :inline_switch, \
-      disabled: cannot?(:edit, occupation), \
-      label_html: { class: "bg-primary" }
+      wrapper_html: { class: "material-switch-primary" }, \
+      disabled: cannot?(:edit, occupation)
   .col-sm-8.trade_id_wrapper
     - if occupation.trade
       .jack_occupations_trade_id data-trade-id=occupation.trade_id
