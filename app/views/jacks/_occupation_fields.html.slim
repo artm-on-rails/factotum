@@ -8,11 +8,10 @@
       title: occupation.destroy_tooltip
       i.fas.fa-minus
   .col-sm-3
-    .material-switch
-      = f.check_box :master, \
-        disabled: cannot?(:edit, occupation)
-      = f.label :master, \
-        class: "bg-primary"
+    = f.input :master, \
+      wrapper: :inline_switch, \
+      disabled: cannot?(:edit, occupation), \
+      label_html: { class: "bg-primary" }
   .col-sm-8.trade_id_wrapper
     - if occupation.trade
       .jack_occupations_trade_id data-trade-id=occupation.trade_id

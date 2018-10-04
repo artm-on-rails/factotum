@@ -13,4 +13,14 @@ SimpleForm.setup do |config|
       ba.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
     end
   end
+
+  # inline input for boolean
+  config.wrappers :inline_switch, tag: 'span', class: 'form-check flex-wrap justify-content-start mr-sm-2 material-switch', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :input, class: 'form-check-input'
+    b.use :label, class: 'form-check-label'
+    b.use :error, wrap_with: { tag: 'div', class: 'invalid-feedback' }
+    b.optional :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
+  end
 end
