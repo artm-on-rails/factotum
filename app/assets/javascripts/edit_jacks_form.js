@@ -17,7 +17,6 @@ $(document).on("turbolinks:load", function() {
       select.find(`option[value="${tradeId}"]`).remove();
     }
     $(node).addClass("last-inserted");
-    console.log("length:", select.find("option").length, "elements:", select.find("option").get());
     if (select.find("option").length == 1) {
       finalizeLastInserted(node);
       $(".links").addClass("d-none");
@@ -32,11 +31,13 @@ $(document).on("turbolinks:load", function() {
   function finalizeLastInserted(node) {
     node = node || $(".last-inserted")
     node.each(function () {
-      console.log("Finalizing", this);
       var tradeName = $(this).find(".jack_occupations_trade_id select :selected").text();
       var tradeId = $(this).find(".jack_occupations_trade_id select").val();
+      var select = $(this).find(".trade_id_wrapper select");
+      var hidden = `<input type="hidden" name="${select.attr("name")}" value="${tradeId}">`;
+      console.log(select,hidden);
       $(this).find(".trade_id_wrapper")
-        .html(`<div class="jack_occupations_trade_id" data-trade-id=${tradeId}>${tradeName}</div>`)
+        .html(`<div class="jack_occupations_trade_id" data-trade-id=${tradeId}>${tradeName}${hidden}</div>`)
       $(this).removeClass("last-inserted");
     });
   }
